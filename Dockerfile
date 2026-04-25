@@ -1,5 +1,6 @@
 # 1. 빌드 단계 (Gradle을 사용하여 jar 파일 생성)
-FROM gradle:8.4-jdk17 AS builder
+# 8.4 버전 고정 대신 최신 버전을 가져오도록 gradle:jdk17 사용
+FROM gradle:jdk17 AS builder
 WORKDIR /app
 
 # Gradle 관련 파일 및 소스 코드 복사
@@ -10,7 +11,6 @@ COPY src ./src
 RUN gradle clean build -x test
 
 # 2. 실행 단계 (가벼운 JRE 이미지를 사용하여 앱 실행)
-# openjdk 대신 적극적으로 지원되는 eclipse-temurin의 가벼운 JRE 사용
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
