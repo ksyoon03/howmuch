@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content="이미지·동영상을 메모와 함께 API로 전송 (개발)"/>
+	<title>얼마게? (개발)</title>
+	<link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<header class="site-header">
+	<div class="brand">
+		<span class="brand__mark" aria-hidden="true">
+			<img class="brand__img" th:src="@{/img/brand-mark.png}" src="/img/brand-mark.png" width="64" height="64" alt="" fetchpriority="high" decoding="async"/>
+		</span>
+		<div>
+			<h1 class="brand__title">얼마게?</h1>
+			<p class="brand__tagline">이미지 또는 동영상 + 메모를 서버로 보냄 (AI 연동 전, 스텁)</p>
+		</div>
+	</div>
+</header>
+
+<main class="shell">
+	<section class="panel panel--photo" data-upload-panel="image">
+		<h2 class="panel__h">이미지로 보내기</h2>
+		<p class="panel__lede" data-endpoint="/api/guess">사진·이미지 파일만 첨부 (JPEG, PNG, GIF, WebP 등). 그 외 형식은 붙이지 못해요.</p>
+
+		<div class="api-out api-out--below-title" data-api-out hidden>
+			<p class="api-out__label">응답 (JSON)</p>
+			<pre class="api-out__json" data-api-json></pre>
+		</div>
+		<div class="alert api-err" role="alert" data-api-err hidden></div>
+
+		<form class="upload" data-api-form novalidate>
+			<div class="dropzone dropzone--image" data-dropzone tabindex="0" role="group" aria-label="이미지 첨부">
+				<input class="dropzone__input" type="file" id="api-images"
+							 accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/tiff,image/svg+xml,image/heic,image/heif,image/jxl,image/*"
+							 multiple
+							 data-file-input data-max-files="10" data-accept-kind="image"/>
+				<div class="dropzone__layout">
+					<div class="dropzone__intro">
+						<p class="dropzone__teaser">사진 / 이미지 첨부</p>
+						<p class="dropzone__meta">이미지 형식만 · 최대 10장</p>
+						<label class="btn btn--secondary" for="api-images">사진·이미지 고르기</label>
+					</div>
+					<div class="dropzone__picked" data-picked-outlet aria-live="polite"></div>
+				</div>
+			</div>
+
+			<label class="ask__label" for="api-item">메모 (선택)</label>
+			<input class="ask__input ask__input--block" type="text" id="api-item" name="item" maxlength="500" autocomplete="off" data-memo
+						 placeholder="예: 이 제품 정가가 궁금해"/>
+			<div class="ask__row ask__row--end">
+				<button class="btn btn--ghost" type="button" data-clear-files>첨부 지우기</button>
+				<button class="btn btn--primary" type="submit" data-send>전송</button>
+			</div>
+		</form>
+	</section>
+
+	<section class="panel panel--video" data-upload-panel="video">
+		<h2 class="panel__h">동영상으로 보내기</h2>
+		<p class="panel__lede" data-endpoint="/api/guess/video">동영상만 첨부 (MP4, WebM, MOV 등). 사진/문서는 위 칸을 써요.</p>
+
+		<div class="api-out api-out--below-title" data-api-out hidden>
+			<p class="api-out__label">응답 (JSON)</p>
+			<pre class="api-out__json" data-api-json></pre>
+		</div>
+		<div class="alert api-err" role="alert" data-api-err hidden></div>
+
+		<form class="upload" data-api-form novalidate>
+			<div class="dropzone dropzone--video" data-dropzone tabindex="0" role="group" aria-label="동영상 첨부">
+				<input class="dropzone__input" type="file" id="api-videos"
+							 accept="video/mp4,video/webm,video/quicktime,video/ogg,video/3gpp,video/x-msvideo,video/*"
+							 multiple
+							 data-file-input data-max-files="5" data-accept-kind="video"/>
+				<div class="dropzone__layout">
+					<div class="dropzone__intro">
+						<p class="dropzone__teaser">동영상 첨부</p>
+						<p class="dropzone__meta">동영상만 · 최대 5개</p>
+						<label class="btn btn--secondary" for="api-videos">동영상만 고르기</label>
+					</div>
+					<div class="dropzone__picked" data-picked-outlet aria-live="polite"></div>
+				</div>
+			</div>
+
+			<label class="ask__label" for="api-video-memo">메모 (선택)</label>
+			<input class="ask__input ask__input--block" type="text" id="api-video-memo" name="item" maxlength="500" autocomplete="off" data-memo
+						 placeholder="예: 동영상에 나오는 핸드폰의 가격을 알려줘"/>
+			<div class="ask__row ask__row--end">
+				<button class="btn btn--ghost" type="button" data-clear-files>첨부 지우기</button>
+				<button class="btn btn--primary" type="submit" data-send>전송</button>
+			</div>
+		</form>
+	</section>
+</main>
+
+<footer class="site-footer">
+	<small>개발용 화면</small>
+</footer>
+
+<script th:src="@{/js/app.js}" defer></script>
+</body>
+</html>
