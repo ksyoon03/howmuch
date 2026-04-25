@@ -1,3 +1,8 @@
 [build]
 builder = "dockerfile"
 dockerfilePath = "Dockerfile"
+
+[deploy]
+# 로그 "ls */build/libs/*jar" / 잘못된 startCommand 덮어쓰기 (docker CMD와 동일)
+startCommand = "sh -c 'exec java -Dserver.port=${PORT:-8080} -jar /app/app.jar'"
+restartPolicyType = "ON_FAILURE"
