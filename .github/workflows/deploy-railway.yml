@@ -4,9 +4,8 @@
 name: Deploy to Railway
 
 on:
+  # 시크릿 설정 전에는 push로 실패할 수 있어 수동 실행만. 설정 후 push 트리거를 추가해도 됨.
   workflow_dispatch:
-  push:
-    branches: [frontend]
 
 jobs:
   deploy:
